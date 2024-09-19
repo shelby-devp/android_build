@@ -56,7 +56,6 @@ PRODUCT_PACKAGES += \
     KeyChain \
     librs_jni \
     ManagedProvisioning \
-    MmsService \
     MtpService \
     MusicFX \
     PacProcessor \
@@ -68,7 +67,6 @@ PRODUCT_PACKAGES += \
     SimAppDialog \
     Telecom \
     TelephonyProvider \
-    TeleService \
     Traceur \
     UserDictionaryProvider \
     VpnDialogs \
@@ -79,6 +77,12 @@ PRODUCT_PACKAGES += $(RELEASE_PACKAGE_VIRTUAL_CAMERA)
 # RELEASE_PACKAGE_VIRTUAL_CAMERA build. virtual_camera_service_enabled soong config
 # variable is used to prevent accessing the service when it's not present in the build.
 $(call soong_config_set,vdm,virtual_camera_service_enabled,$(if $(RELEASE_PACKAGE_VIRTUAL_CAMERA),true,false))
+
+ifneq ($(TARGET_NO_TELEPHONY), true)
+PRODUCT_PACKAGES += \
+  MmsService \
+  TeleService
+endif #TARGET_NO_TELEPHONY
 
 ifneq ($(TARGET_USES_QSPA), true)
 PRODUCT_PACKAGES += \
